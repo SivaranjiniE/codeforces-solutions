@@ -7,6 +7,7 @@ import random
 import base64
 import re
 
+new_solution = False
 
 load_dotenv()
 
@@ -81,7 +82,7 @@ for submission in submissions:
 
             with open(filename, "w", encoding="utf-8") as file:
                 file.write(code)
-
+            new_solution = True
             print("Accepted solution saved:", filename)
 
 
@@ -90,7 +91,9 @@ if submissions:
 
     with open("last_submission.txt", "w") as file:
         file.write(str(latest_submission))
-import subprocess
+if new_solution:
+   import subprocess
 
-subprocess.run(["git", "add", "."])
-subprocess.run(["git", "commit", "-m", "Add new accepted Codeforces solutions"])
+   subprocess.run(["git", "add", "."])
+   subprocess.run(["git", "commit", "-m", "Add new accepted Codeforces solutions"])
+   subprocess.run(["git", "push", "origin", "main"])
